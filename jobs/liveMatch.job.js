@@ -1,26 +1,27 @@
 const cron = require("node-cron");
-const Match = require("../models/Match");
+const Match = require("../models/match.model");
 const { getLiveMatches } = require("../services/sportmonks.service");
 
-cron.schedule("*/30 * * * * *", async () => {
+//cron.schedule("*/30 * * * * *", async () => {
   try {
-    console.log("Fetching live matches...");
-
     const matches = await getLiveMatches();
 
     for (const match of matches) {
       await Match.findOneAndUpdate(
         { matchId: match.id },
         {
-          matchId: match.id,
-          league: match.league?.name,
-          season: match.season?.name,
-          localTeam: match.localteam?.name,
+          sportsId: "696109aecec65f9a0cd194e6",
+          sportmonksId: match.id,
+          leagueId: match.league?.id,
+          homeTeamId: match.localteam?.id,
+          awayTeamId: match.visitorTeam?.id,
           visitorTeam: match.visitorteam?.name,
-          status: match.status,
-          runs: match.runs,
           startTime: match.starting_at,
-          updatedAt: new Date()
+          status: match.status,
+          venue:"stadium",
+          result: match.runs,
+          lastUpatedAt:match.updatedAt,
+          isLive:true
         },
         { upsert: true, new: true }
       );
@@ -30,4 +31,4 @@ cron.schedule("*/30 * * * * *", async () => {
   } catch (err) {
     console.error("Live match sync error:", err.message);
   }
-});
+//});
