@@ -88,7 +88,7 @@ module.exports.changePassword = async function (req, res) {
 
     res.status(200).json({ message: 'Password changed successfully.' });
   } catch (error) {
-    res.status(constants.HTTP_500).json({ message: constants.SOMETHING_WENT_WRONG });
+    res.status(constants.HTTP_500).json({ message: error.message+constants.SOMETHING_WENT_WRONG });
   }
 };
 

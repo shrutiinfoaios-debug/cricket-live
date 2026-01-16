@@ -11,8 +11,9 @@ const constants = require('./utils/constants.js');
 const app = express();
 const port = process.env.PORT || constants.PORT;
 
-const routes = require('./routes/user.routes.js');
-
+const userroutes = require('./routes/user.routes.js');
+const operatorroutes = require('./routes/operators.routes.js');
+const apikeyroutes = require('./routes/apikeys.routes.js');
 // CORS
 app.use(cors());
 
@@ -28,7 +29,9 @@ app.use(bodyParser.json());
 //app.use(requestLogger);
 
 // Routes
-app.use('/', routes);
+app.use('/', userroutes);
+app.use('/', operatorroutes);
+app.use('/', apikeyroutes);
 
 // 404 handler
 app.use((req, res) => {

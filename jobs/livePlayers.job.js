@@ -1,8 +1,8 @@
 const cron = require("node-cron");
 const Players = require("../models/players.model");
 const { getLivePlayers } = require("../services/sportmonks.service");
-
-//cron.schedule("*/30 * * * * *", async () => {
+//cron.schedule("*/30 * * * * *", 
+(async () => {
   try {
     console.log("Fetching live players...");
 
@@ -27,4 +27,4 @@ const { getLivePlayers } = require("../services/sportmonks.service");
   } catch (err) {
     console.error("Live players sync error:", err.message);
   }
-//});
+});

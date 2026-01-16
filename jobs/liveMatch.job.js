@@ -2,7 +2,8 @@ const cron = require("node-cron");
 const Match = require("../models/match.model");
 const { getLiveMatches } = require("../services/sportmonks.service");
 
-//cron.schedule("*/30 * * * * *", async () => {
+//cron.schedule("*/30 * * * * *", 
+(async () => {
   try {
     const matches = await getLiveMatches();
 
@@ -31,4 +32,4 @@ const { getLiveMatches } = require("../services/sportmonks.service");
   } catch (err) {
     console.error("Live match sync error:", err.message);
   }
-//});
+});

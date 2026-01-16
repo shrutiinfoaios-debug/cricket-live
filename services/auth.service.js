@@ -1,15 +1,12 @@
-
 const jwt = require("jsonwebtoken");
 const usersSchema = require("../models/users.model");
 const { hashPassword } = require("../utils/utils");
 const nodemailer = require('nodemailer');
 
 module.exports = {
-  
     decodeToken(token, secret) {
     return jwt.verify(token, secret);
   },
-
   
   async registerUser(data, ip, creatorId) {
     const newUser = new usersSchema(data);
@@ -44,15 +41,16 @@ module.exports = {
 
   async changePassword(userId, oldPass, newPass) {
     const user = await usersSchema.findOne({ _id: userId });
-    if (!user || !user.comparePassword(oldPass)) return null;
-
-    const hashed = await hashPassword(newPass);
-    await usersSchema.updateOne({ _id: userId }, { passwordHash: hashed });
-    return true;
+    
+    if (user && user.comparePassword(oldPass)) {
+      const hashed = await hashPassword(newPass);
+      await usersSchema.updateOne({ _id: userId }, { hash: hashed.hash, password:hashed.hashedPassword });
+      return true;
+    } else
+       return null;
   },
 
   async forgotPasswordRequest(resetPasswordUrl, userEmail){
-      
       try {
         const user = await usersSchema.findOne({ email: userEmail });
         if (!user) return null;
@@ -73,14 +71,14 @@ module.exports = {
         const mailOptions = {
           to: userEmail,
           from: process.env.EMAIL,
-          subject: 'Reset Password for InfoAIOS',
+          subject: 'Reset Password for cricFeed',
           text: `Hi ${user.username},\n
            You have requested the reset of the password for your account.\n\n
           Please click on the following link, or paste this into your browser to complete the process: \n
           ${resetURL}\n\n
           If you did not request this, please ignore this email and your password will remain unchanged.\n`,
         };
-        
+        console.log(mailOptions);
         await transporter.sendMail(mailOptions);
         return true;
       } catch (error) {
