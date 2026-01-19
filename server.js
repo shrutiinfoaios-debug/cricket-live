@@ -14,6 +14,7 @@ const port = process.env.PORT || constants.PORT;
 const userroutes = require('./routes/user.routes.js');
 const operatorroutes = require('./routes/operators.routes.js');
 const apikeyroutes = require('./routes/apikeys.routes.js');
+const planroutes = require('./routes/plans.routes.js');
 // CORS
 app.use(cors());
 
@@ -32,6 +33,7 @@ app.use(bodyParser.json());
 app.use('/', userroutes);
 app.use('/', operatorroutes);
 app.use('/', apikeyroutes);
+app.use('/', planroutes);
 
 // 404 handler
 app.use((req, res) => {
