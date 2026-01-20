@@ -15,6 +15,8 @@ const userroutes = require('./routes/user.routes.js');
 const operatorroutes = require('./routes/operators.routes.js');
 const apikeyroutes = require('./routes/apikeys.routes.js');
 const planroutes = require('./routes/plans.routes.js');
+const subscriptionroutes = require('./routes/subscriptions.routes.js')
+const invoiceroutes = require('./routes/invoices.routes.js');
 // CORS
 app.use(cors());
 
@@ -34,6 +36,8 @@ app.use('/', userroutes);
 app.use('/', operatorroutes);
 app.use('/', apikeyroutes);
 app.use('/', planroutes);
+app.use('/', subscriptionroutes);
+app.use('/', invoiceroutes);
 
 // 404 handler
 app.use((req, res) => {
