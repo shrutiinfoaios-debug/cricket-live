@@ -53,4 +53,3 @@ exports.deleteInvoice = async function (req, res) {
     res.status(constants.HTTP_400).json({ message: error.message });
   }
 };
-

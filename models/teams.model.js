@@ -1,36 +1,41 @@
 const mongoose = require("mongoose");
 
 const teamsSchema = new mongoose.Schema({
-  teamsId: Number,
-  sportsId: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'sports',
+    id: {
+                type: Number,
+                required: true                        //sport monk team id
+              },
+    country_id : {
+                type: Number,
+                required: true                        //sport monk country id
+              },                
+    name: {
+                type: String,
+                trim: true,
                 required: true
-          },
-  sportmonksId: {
-                type:Number,
+            },
+    code: {
+                type: String,
+                trim: true,
                 required: true
-                },
-  name: {
-                type:String,
-                required: true
-                },
-  shotName: {
-                type:String,
-                required: true
-                },              
-  logo: {
-                type:String,
-                required: true
-                },  
-  country: {
-                type:String,
-                required: true
-                },
-  isActive: {
+            },        
+    image_path:{
+                type: String,
+                trim: true,
+                default: null
+            },  
+    national_team:{
                 type: Boolean,
-                default: true
-            }
-});
+                required:true
+        },              
+    updated_at: {
+                type: Date,
+                default: null
+            },        
+    createdAt: {
+                type: Date,
+                default:Date.now
+    }
+},{ versionKey: false});
 
 module.exports = mongoose.model("teams", teamsSchema);

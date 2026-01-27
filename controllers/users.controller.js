@@ -1,6 +1,7 @@
 const usersService = require("../services/users.service");
 const constants = require("../utils/constants");
-
+const Match = require("../models/match.model");
+const { getLiveMatches } = require("../services/sportmonks.service");
 
 exports.profile = async (req, res) => {
   try {
@@ -30,6 +31,35 @@ exports.updateUserProfile = async (req, res) => {
     );
 
     res.status(200).json(updatedUser);
+  } catch (e) {
+    res.status(constants.HTTP_400).json({ message: e.message });
+  }
+};
+
+exports.getLiveMatches = async (req, res) => {
+  try {
+    const matches = await getLiveMatches();
+    console.log(matches)
+    for (const match of matches) {
+      await Match.findOneAndUpdate(
+        { matchId: match.id },
+        {
+          sportsId: "696109aecec65f9a0cd194e6",
+          sportmonksId: match.id,
+          leagueId: match.league?.id,
+          homeTeamId: match.localteam?.id,
+          awayTeamId: match.visitorTeam?.id,
+          visitorTeam: match.visitorteam?.name,
+          startTime: match.starting_at,
+          status: match.status,
+          venue:"stadium",
+          result: match.runs,
+          lastUpatedAt:match.updatedAt,
+          isLive:true
+        },
+        { upsert: true, new: true }
+      );
+    }
   } catch (e) {
     res.status(constants.HTTP_400).json({ message: e.message });
   }

@@ -1,24 +1,24 @@
-const mongoose = require("mongoose");
-
-const playersSchema = new mongoose.Schema({
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+const CountriesSchema = new Schema({
     id: {
                 type: Number,
-                required: true                        //sport monk team id
-              },
-    country_id : {
-                type: Number,
                 required: true                        //sport monk country id
-              },                
-    fullname: {
+              },
+    continent_id: {
+                type: Number,
+                required: true                        //sport monk continent id
+              },          
+    name: {
                 type: String,
                 trim: true,
                 required: true
             },
-    gender: {
+    image_path:{
                 type: String,
                 trim: true,
-                required: true
-            },                     
+                default: null
+            },        
     updated_at: {
                 type: Date,
                 default: null
@@ -29,4 +29,4 @@ const playersSchema = new mongoose.Schema({
     }
 },{ versionKey: false});
 
-module.exports = mongoose.model("players", playersSchema);
+module.exports = mongoose.model('countries', CountriesSchema);

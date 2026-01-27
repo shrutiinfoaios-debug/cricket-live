@@ -17,6 +17,7 @@ const apikeyroutes = require('./routes/apikeys.routes.js');
 const planroutes = require('./routes/plans.routes.js');
 const subscriptionroutes = require('./routes/subscriptions.routes.js')
 const invoiceroutes = require('./routes/invoices.routes.js');
+const syncrawdataroutes = require('./routes/syncRawData.routes.js');
 // CORS
 app.use(cors());
 
@@ -38,6 +39,7 @@ app.use('/', apikeyroutes);
 app.use('/', planroutes);
 app.use('/', subscriptionroutes);
 app.use('/', invoiceroutes);
+app.use('/', syncrawdataroutes);
 
 // 404 handler
 app.use((req, res) => {

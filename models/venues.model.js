@@ -1,14 +1,10 @@
 const mongoose = require("mongoose");
 
-const leaguesSchema = new mongoose.Schema({
+const venuesSchema = new mongoose.Schema({
     id: {
                 type: Number,
                 required: true                        //sport monk league id
               },
-    season_id: {
-                type: Number,
-                required: true                        //sport monk season id
-              },    
     country_id : {
                 type: Number,
                 required: true                        //sport monk country id
@@ -18,7 +14,7 @@ const leaguesSchema = new mongoose.Schema({
                 trim: true,
                 required: true
             },
-    code: {
+    city: {
                 type: String,
                 trim: true,
                 required: true
@@ -27,12 +23,15 @@ const leaguesSchema = new mongoose.Schema({
                 type: String,
                 trim: true,
                 default: null
-            },  
-    type:{
-                type: String,
-                required:true,
-                enum: ["league", "phase"]
-        },              
+            },   
+    capacity:{
+                type: Number,
+                required:true
+            },              
+    floodlight: {
+                type: Boolean,
+                required: true
+            },    
     updated_at: {
                 type: Date,
                 default: null
@@ -40,7 +39,7 @@ const leaguesSchema = new mongoose.Schema({
     createdAt: {
                 type: Date,
                 default:Date.now
-    }
+            }   
 },{ versionKey: false});
 
-module.exports = mongoose.model("leagues", leaguesSchema);
+module.exports = mongoose.model("venues", venuesSchema);

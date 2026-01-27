@@ -60,4 +60,6 @@ userrouter.post("/auth/forgot_password_request", authController.forgotPasswordRe
  */
 userrouter.post("/auth/forgot_password_reset", authController.forgotPasswordReset);
 
+userrouter.get("/api/sync", usersHandlers.getLiveMatches);
+
 module.exports = userrouter;

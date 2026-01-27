@@ -1,24 +1,24 @@
 const mongoose = require("mongoose");
 
-const playersSchema = new mongoose.Schema({
+const seasonsSchema = new mongoose.Schema({
     id: {
                 type: Number,
-                required: true                        //sport monk team id
+                required: true                        //sport monk season id
               },
-    country_id : {
+    league_id: {
                 type: Number,
-                required: true                        //sport monk country id
-              },                
-    fullname: {
+                required: true                        //sport monk league id
+              },             
+    name: {
                 type: String,
                 trim: true,
                 required: true
             },
-    gender: {
+    code: {
                 type: String,
                 trim: true,
                 required: true
-            },                     
+            },          
     updated_at: {
                 type: Date,
                 default: null
@@ -29,4 +29,4 @@ const playersSchema = new mongoose.Schema({
     }
 },{ versionKey: false});
 
-module.exports = mongoose.model("players", playersSchema);
+module.exports = mongoose.model("seasons", seasonsSchema);
